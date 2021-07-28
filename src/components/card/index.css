@@ -1,0 +1,63 @@
+.Container {
+    display: flex;
+    /* background-color: red; */
+    color:black;
+    padding:5px;
+    margin:5px;
+    border-bottom: solid black 1px;
+    /* border: 5px; */
+}
+
+.Info{
+/* font-size: small;
+/* padding-left: 15px; */
+/* margin-left:5px; */ 
+flex:4;
+padding: 10px;
+/* margin: 10px; */
+display: flex;
+flex-direction: column;
+/* background-color: teal; */
+}
+
+.Info--Title {
+    /* font-stretch: expanded; */
+    letter-spacing: .1rem;
+    font-size: xxx-large;
+    font-weight: 700;
+    padding: 0px;
+    margin:0px;
+}
+
+.Info--Data {
+    margin-top:0px;
+    font-size: x-small;
+    font-weight: lighter;
+    margin-left: 25px;
+    line-height: 50%;
+    color: #111;
+
+}
+
+.Avatar{
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 150px;
+    height: 150px; */
+    /* background-color: grey; */
+    /* padding: 5px; */
+    /* margin: 10px; */
+}
+
+.Avatar .Avatar--Img{
+background-color: white;
+color: black;
+height: 100px;
+width: 100px;
+font-size: xx-large;
+border: 1px solid black;
+/* margin:10px; */
+}
+
