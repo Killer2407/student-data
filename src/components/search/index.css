@@ -1,4 +1,16 @@
 .Search{
 
+width: 98%;
+margin:10px;
+height: 35px;
+/* padding: 10px; */
+/* border-bottom: 1px solid black; */
+border: 0px;
 border-bottom: 1px solid black;
+font-size: large;
+
+}
+
+.Search:focus{
+    outline: none;
 }
