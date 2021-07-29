@@ -25,10 +25,38 @@ const HomePage = () => {
         })
     },[])
 
+    // useEffect(() => {
+    //     // setFilteredData([
+    //     //     ...filterTagData,
+    //     //     ...filterNameData
+    //     // ])
+    //     console.log('hit');
+    //     if(filteredData && filterTagData && filteredData.length===0 && filterTagData.length===0){
+    //         setFilteredData(students);
+    //     }else{
+    //         console.log('hit 2');
+    //         setFilteredData([
+    //             ...filteredData,
+    //             ...filterTagData
+    //         ])
+    //     }
+
+    // }, [filterTagData,filterNameData])
+
+
     useEffect(() => {
+        setFilteredData([
+            ...filterNameData,
+            // ...filterTagData
+            ])
+    }, [filterNameData])
 
-    }, [filteredData])
-
+    useEffect(() => {
+        console.log('tags useEffect',filterTagData)
+        setFilteredData([
+            ...filterTagData,
+            ])
+    }, [filterTagData])
  
     const filterDataByName =( e )=>{
 
@@ -55,9 +83,10 @@ const HomePage = () => {
         console.log('name',tempData);
         setFilterNameData(tempData);
 
-        setFilteredData([
-            ...filterNameData,
-            ...filterTagData]);
+        // setFilteredData(
+        //     filterNameData,
+        //     // ...filterTagData
+        // );
         // }
 
     }
@@ -67,7 +96,12 @@ const HomePage = () => {
         // ref.current = e.target.value;
             // setInput(e.target.value);
             const tag = e.target.value;
-            // if(e.target.value === ''){
+            console.log('tag changed in search bar',tag);
+            if(e.target.value === ''){
+                console.log('here',students);
+                setFilterTagData(students);
+            }else{
+
             //     if(filterNameData){
             //     setFilteredData([
             //         ...filterNameData
@@ -78,8 +112,8 @@ const HomePage = () => {
             //     ]);
             // }
             // }else{
-            console.log('val in tags',e.target.value);
-            console.log('student',students)
+            // console.log('val in tags',e.target.value);
+            // console.log('student',students)
             let tempData = [];
             
             // students.filter(student => {
@@ -122,10 +156,10 @@ const HomePage = () => {
             //     return student.firstName.toLowerCase().includes(tag) ? true :false;
             //  })
             setFilterTagData(tempData);
-            setFilteredData([
-                ...filterNameData,
-                ...filterTagData]);
-        // }
+            // setFilteredData([
+            //     ...filterNameData,
+            //     ...filterTagData]);
+        }
     }
 
 
@@ -161,9 +195,9 @@ const HomePage = () => {
 
 
     const keyPress =(e,student)=>{
-        console.log('keypress',student)
+        // console.log('keypress',student)
         if(e.key === 'Enter'){            
-            setFilteredData(filteredData.map((s,idx)=>{
+            setFilterTagData(filteredData.map((s,idx)=>{
                 if(s.firstName === student.firstName){
                     if(s.tags){
                         s.tags.push(tag);
@@ -177,7 +211,9 @@ const HomePage = () => {
     }
 
     return (
+        
         <>
+        {console.log('render')}
          {/* <input type="text" name="search" onChange={(e)=>handleChange(e)} 
         placeholder= {'Search by name'}/> */}
         {/* // <Search students= > </Search> */}
@@ -188,7 +224,7 @@ const HomePage = () => {
         {/* <Search students = {students} type ='tags' /> */}
         {/* </div> */}
         {/* <Search students = {students} type ='tag' /> */}
-        {console.log('fd',filteredData)}
+        {console.log('fd',filteredData.length)}
         {filteredData && filteredData.map((student,index)=>{
             // console.log('idx',student);
             return <Card key = {index} student= {student} addTag={addTag} keyPress={(e)=>keyPress(e,student)} refresh={tag} ></Card>
@@ -202,3 +238,24 @@ const HomePage = () => {
 }
 
 export default HomePage;
+
+
+
+/*
+case 1:
+    filter by name and tag is empty --done
+        show only filter by names
+
+case 2:
+    fiter by tag and name is empty  --done
+        show only filter by tags
+
+case 3: filter by name and tag
+        show both filters
+
+case 4: dont filter anything  -- done
+        show student data
+
+
+
+*/
