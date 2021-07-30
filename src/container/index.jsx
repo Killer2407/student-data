@@ -12,12 +12,13 @@ const HomePage = () => {
     const [filterNameData, setFilterNameData] = useState([]);
     const [filterTagData, setFilterTagData] = useState([]);
     const [tag,setTag] = useState('');
+    const [searchTag, setSearchTag] = useState('');
+    const [searchName,setSearchName] = useState('');
 
 
     useEffect(() => {
-
          getData().then(d=>{
-            // console.log('data',d.data.students);
+            console.log('data',d.data.students);
             setStudents(d.data.students);
             setFilteredData(d.data.students);
         }).catch(err=>{
@@ -25,63 +26,122 @@ const HomePage = () => {
         })
     },[])
 
-    // useEffect(() => {
-    //     // setFilteredData([
-    //     //     ...filterTagData,
-    //     //     ...filterNameData
-    //     // ])
-    //     console.log('hit');
-    //     if(filteredData && filterTagData && filteredData.length===0 && filterTagData.length===0){
-    //         setFilteredData(students);
-    //     }else{
-    //         console.log('hit 2');
-    //         setFilteredData([
-    //             ...filteredData,
-    //             ...filterTagData
-    //         ])
-    //     }
+    useEffect(() => {
+        // case 1: dont filter anything  -- show student data
+        if(searchTag === '' && searchName === ''){
+            setFilteredData(students);
+        }
+        // case 2: filter by name and tag is empty  -- show only filter by names
+        else if(searchName!=='' && !searchTag){
+            setFilteredData(filterNameData);
+        }
+        // case 3: filter by name and tag -- show both filters
+        else if (!searchName && searchTag!==''){
+            setFilteredData(filterTagData);
+        }
+        // case 4: filter by name and tag -- show both filters
+        else if(searchName!=='' && searchTag!==''){
+            console.log('object')
+            setFilteredData([
+                ...filterNameData,
+                ...filterTagData
+            ])
+        }
+    }, [filterNameData,filterTagData])
 
+
+    // useEffect(() => {
+    //     console.log('tag in filterNameData  effect',tag);
+    //     console.log('name in filterNameData effect',name);
+
+    //     setFilteredData([
+    //         // ...filterTagData,
+    //         ...filterNameData,
+    //         // ...filterTagData
+    //         ])
+    // }, [filterNameData])
+
+    // useEffect(() => {
+    //     console.log('tag in filterTagData  effect',tag);
+    //     console.log('name in filterTagData effect',name);
+    //     // if(tag && name===''){
+    //     //     setFilteredData([
+    //     //         // ...filterNameData,
+    //     //         ...filterTagData,
+    //     //         ])
+    //     // }else if (tag ==='' && name){
+    //     //     setFilteredData([
+    //     //         // ...filterTagData,
+    //     //         ...filterNameData,
+    //     //         // ...filterTagData
+    //     //         ])
+    //     // }else if (tag === '' && name===''){
+    //     //     setFilteredData(
+    //     //         // ...filterTagData,
+    //     //         students
+    //     //         // ...filterTagData
+    //     //         )
+    //     // }else {
+    //     //     setFilteredData([
+    //     //         ...filterTagData,
+    //     //         ...filterTagData
+    //     //         ])
+    //     // }
+
+                
     // }, [filterTagData,filterNameData])
 
 
-    useEffect(() => {
-        setFilteredData([
-            ...filterNameData,
-            // ...filterTagData
-            ])
-    }, [filterNameData])
+    // useEffect(()=>{
+    //     setFilteredData(filterNameData)
+    // },[filterTagData,filterNameData])
 
-    useEffect(() => {
-        console.log('tags useEffect',filterTagData)
-        setFilteredData([
-            ...filterTagData,
-            ])
-    }, [filterTagData])
+    // useEffect(() => {
+
+    //     // console.log('set',set.keys());
+    //     console.log('tag data',filterTagData);
+    //     console.log('name data',filterNameData);
+    //     // if(filterTagData.length>0 && filterNameData.length ===0 ){
+    //     //     setFilteredData([
+    //     //         ...filterTagData,
+    //     //         // ...filterNameData
+    //     //     ])
+    //     // }else if(filterTagData.length ===0 && filterNameData.length>0 ){
+    //     setFilteredData([
+    //         ...filterTagData,
+    //         ...filterNameData
+    //     ])
+    // // }
+    // }, [filterTagData,filterNameData])
+
  
     const filterDataByName =( e )=>{
-
-    // ref.current = e.target.value;
-        // setInput(e.target.value);
-        // if(e.target.value ===''){
-        //     if(filterTagData){
-        //         setFilteredData([
-        //             ...filterTagData
-        //         ]);
-        //     }else{
-        //         setFilteredData([
-        //             ...students
-        //         ]);
-        //     }
-            
-        // }
-        // else{
         const name = e.target.value;
-        console.log('val',e.target.value);
-        const tempData = students.filter(student => {
-           return student.firstName.toLowerCase().includes(name) ? true :false;
+        // console.log('val',e.target.value);
+        setSearchName(name);
+        // setName(e.target.value);
+        
+        const tempData = [];
+        // students.filter(student => {
+        //    return student.firstName.toLowerCase().includes(name) ? true :false;
+        // })
+        students.forEach(student=>{
+            if(student.firstName.toLowerCase().includes(name)){
+                tempData.push(student);
+            }
         })
+
         console.log('name',tempData);
-        setFilterNameData(tempData);
+
+        // if(filterTagData)
+        // if(tag){
+            setFilterNameData([
+                ...tempData,
+                // ...filterTagData
+            ]);
+        // }else{
+        //     setFilterNameData(tempData);
+        // }
 
         // setFilteredData(
         //     filterNameData,
@@ -95,12 +155,20 @@ const HomePage = () => {
 
         // ref.current = e.target.value;
             // setInput(e.target.value);
-            const tag = e.target.value;
-            console.log('tag changed in search bar',tag);
-            if(e.target.value === ''){
-                console.log('here',students);
-                setFilterTagData(students);
-            }else{
+            const tagged = e.target.value;
+            setSearchTag(tagged);
+            console.log('tag changed in search bar',tagged);
+            // setTag
+            // if(e.target.value === ''){
+                // setFilteredData(students);
+            //     console.log('here',students);
+            //     setFilterTagData([
+            //         ...filterNameData]);
+            // }else if(e.target.value === '' && name ===''){
+            //     setFilterTagData([
+            //         ...students
+            //     ])
+            // }else {
 
             //     if(filterNameData){
             //     setFilteredData([
@@ -159,7 +227,7 @@ const HomePage = () => {
             // setFilteredData([
             //     ...filterNameData,
             //     ...filterTagData]);
-        }
+        // }
     }
 
 
@@ -167,32 +235,6 @@ const HomePage = () => {
         console.log('log tag',e.target.value);
         setTag(e.target.value);
     }
-
-    // const filterDataByTag =( e )=>{
-
-    //     // ref.current = e.target.value;
-    //         // setInput(e.target.value);
-    //         const tag = e.target.value;
-    //         console.log('val',e.target.value);
-    //         const tempData = students.filter(student => {
-    //            return student.firstName.toLowerCase().includes(tag) ? true :false;
-    //         })
-    //         setFilteredData(tempData);
-    
-    //     }
-
-
-    // handle change 
-    // const handleChange = (event)=>{
-  
-    //     inputRef.current = event.target.value;
-
-    //     setInput({[event.target.name]:event.target.value});
-    //     console.log('event',inputRef.current);
-    // }
-
-    // console.log('query',query);
-
 
     const keyPress =(e,student)=>{
         // console.log('keypress',student)
@@ -224,9 +266,9 @@ const HomePage = () => {
         {/* <Search students = {students} type ='tags' /> */}
         {/* </div> */}
         {/* <Search students = {students} type ='tag' /> */}
-        {console.log('fd',filteredData.length)}
+        {/* {console.log('fd',filteredData.length)} */}
         {filteredData && filteredData.map((student,index)=>{
-            // console.log('idx',student);
+            // console.log('idx1',student);
             return <Card key = {index} student= {student} addTag={addTag} keyPress={(e)=>keyPress(e,student)} refresh={tag} ></Card>
         })}
         {/* <Card> </Card> */}
