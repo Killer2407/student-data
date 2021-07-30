@@ -1,28 +1,20 @@
 .Container {
     display: flex;
-    /* background-color: red; */
     color:black;
     padding:5px;
     margin:5px;
     border-bottom: solid black 1px;
-    /* border: 5px; */
 }
 
-.Info{
-/* font-size: small;
-/* padding-left: 15px; */
-/* margin-left:5px; */ 
-flex:4;
-padding: 10px;
-margin-left: 30px;
-/* margin: 10px; */
-display: flex;
-flex-direction: column;
-/* background-color: teal; */
+.Info{ 
+    flex:4;
+    padding: 10px;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .Info--Title {
-    /* font-stretch: expanded; */
     letter-spacing: .1rem;
     font-size: xxx-large;
     font-weight: 700;
@@ -43,65 +35,47 @@ flex-direction: column;
 .Avatar{
     flex:1;
     display: flex;
-
     justify-content: center;
-    /* align-items: center; */
-    /* width: 150px;
-    height: 150px; */
-    /* background-color: grey; */
-    /* padding: 5px; */
-    /* margin: 10px; */
 }
 
 .Avatar .Avatar--Img{
-background-color: white;
-color: black;
-height: 125px;
-width: 125px;
-font-size: xx-large;
-border: 1px solid black;
-margin:20px 0px 0px 10px;
+    background-color: white;
+    color: black;
+    height: 125px;
+    width: 125px;
+    font-size: xx-large;
+    border: 1px solid black;
+    margin:20px 0px 0px -20px;
 }
 
 .Info--Data > .Info--Data_main{
-    /* margin-bottom: 10px; */
-    /* background-color: red; */
     padding:5px 0px 5px 0px;
-
 }
 
 .Info--Data > .Info--Data_testScore {
-    /* margin-bottom: 10px; */
-    /* background-color: blue; */
-    /* padding:5px 0px 5px 0px; */
     width: 100%;
-
 }
 
-
-
-
-
-
 .Info--Data > .Info--Data_main .tagInput{
-/* outline: none; */
-border: 0px;
-border-bottom: 1px solid black;
-font-size: medium;
-
-/* background-color: red; */
+    border: 0px;
+    border-bottom: 1px solid black;
+    font-size: medium;
 }
 
 
 .Info--Data > .Info--Data_main .tagInput:focus{ 
-    /* outline: none; */
-outline: none;
-/* background-color: red; */
-    
-    /* background-color: red; */
-    }
+    outline: none;
+}
 
-    .Info--Data > .Info--Data_main  .chip{
+
+
+.Info--Data .Info--Data_main .Info--Data_tags {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.Info--Data > .Info--Data_main .Info--Data_tags .chip{
     height: 20px;
     width: 50px;
     text-align: center;
@@ -110,3 +84,4 @@ outline: none;
     background-color: lightgrey;
 
 }
+
