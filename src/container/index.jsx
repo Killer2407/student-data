@@ -41,7 +41,7 @@ const HomePage = () => {
         }
         // case 4: filter by name and tag -- show both filters
         else if(searchName!=='' && searchTag!==''){
-            console.log('object')
+            console.log('object',filterTagData);
             setFilteredData([
                 ...filterNameData,
                 ...filterTagData
@@ -157,7 +157,7 @@ const HomePage = () => {
             // setInput(e.target.value);
             const tagged = e.target.value;
             setSearchTag(tagged);
-            console.log('tag changed in search bar',tagged);
+            // console.log('tag changed in search bar',tagged);
             // setTag
             // if(e.target.value === ''){
                 // setFilteredData(students);
@@ -210,7 +210,7 @@ const HomePage = () => {
                 if(student.tags){
                 console.log('st',student);
                 student.tags.forEach(t=>{
-                    if(t.toLowerCase().includes(tag)){
+                    if(t.toLowerCase().includes(tagged)){
                     tempData.push(student);
                     }
                 })
@@ -219,7 +219,7 @@ const HomePage = () => {
 
 
 
-            console.log('temp by tags',tempData)
+            // console.log('temp by tags',tempData)
             // const tempData = students.filter(student => {
             //     return student.firstName.toLowerCase().includes(tag) ? true :false;
             //  })
